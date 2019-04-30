@@ -2,7 +2,7 @@
 Travelling salesman solver using cellular evolutionary algorithm
 
 ### Prerequisites
-Requires cellular evolution Library to work: 
+Requires cellular evolution library to work: 
 https://github.com/missingno7/cellular-evolution
 
 ### Example output
