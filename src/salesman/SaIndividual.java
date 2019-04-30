@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package floorplanning;
+package salesman;
 
 import cellularevoalg.IndData;
 import cellularevoalg.Individual;
@@ -31,6 +31,13 @@ public class SaIndividual extends Individual {
         this.scWidth = scWidth;
         this.scHeight = scHeight;
         cities = new int[citiesCnt];
+
+        // Expensive operation, will be called only once
+        if (!init) {
+            shiftprob = PopConfig.getInstance().reg.getFloat("shifprob")[0];
+            revprob = PopConfig.getInstance().reg.getFloat("revprob")[0];
+            init = true;
+        }
 
     }
 
@@ -178,7 +185,6 @@ public class SaIndividual extends Individual {
         }
     }
 
-    
     /*
     // Faster
     
@@ -225,13 +231,9 @@ public class SaIndividual extends Individual {
 
     }
      */
- 
     //Slower
     @Override
     public void mutate(float amount, float probability, Random rnd) {
-
-        float shiftprob = PopConfig.getInstance().reg.getFloat("shifprob")[0];
-        float revprob = PopConfig.getInstance().reg.getFloat("revprob")[0];
 
         int swapWith;
         for (int i = 0; i < cities.length; i++) {
@@ -265,7 +267,7 @@ public class SaIndividual extends Individual {
         }
 
     }
-     
+
     public void fixIndividual() {
 
         System.out.println("FIXING INDIVIDUAL");
@@ -489,8 +491,6 @@ public class SaIndividual extends Individual {
         colX = 0;
         colY = 0;
 
-        int maxSum = (cities.length - 1) * (cities.length / 2);
-
         for (int i = 0; i < cities.length; i++) {
             if (i % 2 == 0) {
                 if (i % 4 < 2) {
@@ -508,8 +508,10 @@ public class SaIndividual extends Individual {
             }
         }
 
-        colX = Other.tanh(colX / maxSum);
-        colY = Other.tanh(colY / maxSum);
-
     }
+
+    private static boolean init;
+    private static float shiftprob;
+    private static float revprob;
+
 }

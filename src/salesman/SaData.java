@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package floorplanning;
+package salesman;
 
 import cellularevoalg.IndData;
 import cellularevoalg.PopConfig;

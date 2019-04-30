@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package floorplanning;
+package salesman;
 
 import cellularevoalg.PopConfig;
 import cellularevoalg.Population;
@@ -19,17 +19,15 @@ public class Salesman {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws InterruptedException {
-        // TODO code application logic here
 
         String indPath = "out\\";
 
         PopConfig cfg = PopConfig.getInstance();
 
-        // Custom parameter - number of squares
+        // Custom parameter
         cfg.reg.newInt("cities");
         cfg.reg.newInt("scwidth");
         cfg.reg.newInt("scheight");
-        
         cfg.reg.newFloat("shifprob");
         cfg.reg.newFloat("revprob");
 
@@ -39,51 +37,6 @@ public class Salesman {
 
         SaIndividual tstInd = new SaIndividual(tstData.scWidth, tstData.scHeight, tstData.x.length);
 
-        /*tstInd.randomize(tstData, new Random());
-        
-        System.out.println(tstInd.toString(tstData));
-        tstInd.reversePart(10, 5);
-        System.out.println(tstInd.toString(tstData));
-        tstInd.reversePart(10, 5);
-        System.out.println(tstInd.toString(tstData));
-        */
-        /*
-        Random rnd = new Random();
-        for (int i = 0; i < 10000; i++) {
-            int from = rnd.nextInt(tstInd.cities.length);
-            int to = rnd.nextInt(tstInd.cities.length);
-            
-            int num=rnd.nextInt(tstInd.cities.length);
-
-            
-            
-            
-            
-            if(from==to || num==0)
-            {
-                i--;
-                continue;
-            }
-            
-            String before = tstInd.toString(tstData);
-
-            tstInd.shiftMultiple(from, to, true,num);
-            tstInd.shiftMultiple(to, from, false,num);
-            String after = tstInd.toString(tstData);
-
-            if (!before.equals(after)) {
-                
-                System.out.println(from +"\t" + to+"\t"+num);
-                //System.out.println("Error, FROM: " + from +", TO:"+ to+", NUM:"+num);
-                //System.out.println(before);
-                //System.out.println(after);
-            }
-        }
-*/
-
-       
-
-        
         Population pop = new Population(tstInd, tstData, cfg);
         pop.Randomize(new Random());
 
@@ -102,7 +55,6 @@ public class Salesman {
                 if (cfg.drawpop) {
                     pop.paintPop(indPath + "GEN" + Integer.toString(pop.getGen()) + ".png");
                 }
-
             }
 
             System.out.println("GENERATION " + pop.getGen());
@@ -113,7 +65,7 @@ public class Salesman {
 
             pop.nextGen();
         }
-       
+
     }
 
 }
